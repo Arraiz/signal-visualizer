@@ -1,7 +1,7 @@
 {
-  "name": "electron-boilerplate",
+  "name": "system-info",
   "version": "1.0.0",
-  "description": "electron-startup-proyect",
+  "description": "app-that-displays-system-info",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
@@ -19,5 +19,8 @@
   "devDependencies": {
     "devtron": "^1.4.0",
     "electron-reload": "^1.2.2"
+  },
+  "dependencies": {
+    "electron-pug": "^1.5.1"
   }
 }

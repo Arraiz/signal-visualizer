@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World!</title>
+</head>
+
+<body>
+  <h1>To-Do App</h1>
+  <input type="text" id="todo_input" placeholder="write a to-do">
+  <button id="submit_btn">Submit</button>
+  <div>
+    <table id="todo_table">
+      <tr>test</tr>
+
+    </table>
+
+  </div>
+</body>
+<script src="./renderer.js"></script>
+
+
 </html>
