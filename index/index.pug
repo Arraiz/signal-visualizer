@@ -1,12 +1,16 @@
 doctype html  
 html(lang='en')  
     head
+        script(src="../node_modules/plotly.js/dist/plotly.min.js")
+        script(src="../node_modules/tone/build/Tone.min.js")
+        link(rel="stylesheet", href="style.css")
         title your title here
     body
-        
-        p HELLO WORLD
+
+        div(id="tester" style={width: '480px', height: '250px'})
+               
 
     script(src='index_renderer.js', type='text/javascript')
 
-   
-    
+
+

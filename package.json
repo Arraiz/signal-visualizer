@@ -1,26 +1,28 @@
 {
-  "name": "system-info",
+  "name": "signal-visualizer",
   "version": "1.0.0",
-  "description": "app-that-displays-system-info",
+  "description": "working on",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Arraiz/electron-boilerplate.git"
+    "url": "git+https://github.com/Arraiz/signal-visualizer.git"
   },
   "author": "Mike",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Arraiz/electron-boilerplate/issues"
+    "url": "https://github.com/Arraiz/signal-visualizer.git/issues"
   },
-  "homepage": "https://github.com/Arraiz/electron-boilerplate#readme",
+  "homepage": "https://github.com/Arraiz/signal-visualizer.git#readme",
   "devDependencies": {
     "devtron": "^1.4.0",
     "electron-reload": "^1.2.2"
   },
   "dependencies": {
-    "electron-pug": "^1.5.1"
+    "electron-pug": "^1.5.1",
+    "plotly.js": "^1.33.1",
+    "tone": "^0.11.11"
   }
 }
