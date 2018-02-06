@@ -1,5 +1,7 @@
+body{
+    font-size: 10px;
+    
+}
 #tester{
-    border: 1px solid black;
-    height: 450px;
-    width: 500;
+
 }

@@ -1,26 +1,31 @@
 doctype html  
 html(lang='en')  
     head
+        link(rel="stylesheet", href="../node_modules/bootstrap/dist/css/bootstrap.min.css")
         script(src="../node_modules/plotly.js/dist/plotly.min.js")
         script(src="../node_modules/tone/build/Tone.min.js")
         link(rel="stylesheet", href="style.css")
-        title your title here
+        title Modulo 1
     body
 
-    div(id="title")
-    h1 Modulo 1 generador de funciones bascias
-    div(id="selector")
+        div(id="title" class="jumbotron")
+            h1 Modulo 1 generador de funciones basicas
 
-        select(id="signal-selector")
-            option(value="sine" selected="selected")
-                p sine
-            option(value="cosine")
-                p cosine
-            option(value="other")
-                p other
-        input(type="button", value="dibujar",id="plot-button")
-        input(type="number", name="freq(Hz)",id="freq-selector")
-    div(id="tester")
+    div(id="selector")
+        input(type="button", value="añadir grafico",id="add-graphic")
+        div(class="toolbar")
+            select(class="signal-selector")
+                option(value="seno" selected="selected")
+                    p seno
+                option(value="coseno")
+                    p coseno
+                option(value="otro")
+                    p otro
+            input(type="number", name="freq(Hz)",class="freq-selector")
+            // input(type="range", name="freqSlider",min="1",max="100")
+    input(type="button", value="dibujar",id="plot-button")
+    hr
+    div(id="tester" class="container-fluid")
 
 
     script(src='index_renderer.js', type='text/javascript')
