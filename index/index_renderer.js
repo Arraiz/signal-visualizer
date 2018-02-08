@@ -69,32 +69,7 @@ document.getElementById('plot-button').addEventListener('click', function () {
 
 
 
-    /*
-    let signalType = document.getElementById('signal-selector').value;
-    let freq = document.getElementById('freq-selector').value; 
-    ypos=[];
-    //choose the signal
-    switch (signalType) {
-        case 'sine':
-            generateSine(freq);
-            break;
-        case 'cosine':
-            generateCosine(freq);
-            break;
-        default:
-            break;
-    }
-    //plot the generated points
-    Plotly.purge(TESTER);
-    Plotly.newPlot(TESTER, [{
-        x: xpos,
-        y: ypos
-    }], {
-        margin: {
-            t: 0
-        }
-    });
-    */
+   
 
 });
 
