@@ -15,11 +15,26 @@ ts = 1 / fs;
 document.getElementById('add-graphic').addEventListener('click', function () {
 
     addToolbar();
+    createDeleteBtns();
 
 });
 
 
 //for multiple plots
+
+//delete signal in selection
+let delete_btns = document.getElementsByClassName('delete-btn');
+for (let i = 0; i < delete_btns.length; i++) {
+  
+    delete_btns[i].addEventListener('click', function () {
+
+        delete_btns[i].parentElement.nodeName
+  
+    });
+}
+
+
+
 
 
 
@@ -28,20 +43,18 @@ document.getElementById('add-graphic').addEventListener('click', function () {
 document.getElementById('plot-button').addEventListener('click', function () {
 
     let toolbars = document.getElementsByClassName('toolbar');
+    
     let xpos = [];
     let ypos = [];
     for (let i = 0; i < toolbars.length; i++) {
         let tempx = [];
         let tempy = [];
-        let signal = [];
-        console.log(toolbars[i].getElementsByClassName('signal-selector')[0].value)
-        console.log(toolbars[i].getElementsByClassName('freq-selector')[0].value)
         signalType = toolbars[i].getElementsByClassName('signal-selector')[0].value;
         freq = toolbars[i].getElementsByClassName('freq-selector')[0].value
 
         //see if sine or cosine
         switch (signalType) {
-            case 'seno':
+            case 'Seno':
                 generateSine(freq, tempx, tempy);
                 break;
             case 'cosine':
@@ -54,7 +67,6 @@ document.getElementById('plot-button').addEventListener('click', function () {
         xpos = tempx;
 
     }
-
     //plot the generated points
     Plotly.purge(TESTER);
     Plotly.newPlot(TESTER, [{
@@ -65,12 +77,6 @@ document.getElementById('plot-button').addEventListener('click', function () {
             t: 0
         }
     });
-
-
-
-
-   
-
 });
 
 
@@ -84,21 +90,13 @@ document.getElementById('plot-button').addEventListener('click', function () {
 
 
 
-
-
-
-
-
-
 function addSignal(sa, sb) {
     total = [];
     if (sa.length == 0) {
         sa = sb;
         total = sa;
-        console.log("vacio");
 
     } else {
-        console.log("sumando");
         for (let i = 0; i < sb.length; i++) {
             sa[i] = sb[i] + sa[i];
         }
@@ -126,6 +124,15 @@ function generateCosine(freq) {
     }
 }
 
+function createDeleteBtns() {
+    let delete_btns = document.getElementsByClassName('delete-btn');
+    for (let i = 0; i < delete_btns.length; i++) {
+        delete_btns[i].addEventListener('click', function () {
+            delete_btns[i].parentElement.parentElement.remove(); 
+        });
+    }
+
+}
 
 function addToolbar() {
     let toolbar = '<div class="toolbar">\
