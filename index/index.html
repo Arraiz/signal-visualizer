@@ -17,22 +17,24 @@
 <div id="selector">
     <div class="toolbar">
         <select class="signal-selector">
-            <option value="seno" selected="selected">
-                <p>sen</p>
+            <option value="Seno" selected="selected">
+                <p>Seno</p>
             </option>
-            <option value="coseno">
+            <option value="Coseno">
                 <p>coseno</p>
             </option>
-            <option value="otro">
+            <option value="Otro">
                 <p>otro</p>
             </option>
         </select>
         <input class="freq-selector" type="number" name="freq(Hz)" />
+        <button class="btn btn-primary btn-sm delete-btn">x</button>
         <!-- input(type="range", name="freqSlider",min="1",max="100")-->
     </div>
 </div>
-<input class=" btn btn-outline-primary btn-sm" type="button" id="add-graphic" value="add signal" />
-<input class=" btn btn-outline-primary btn-sm" type="button" id="plot-button" value="plot" />
+<input class="btn btn-primary btn-sm" type="button" id="add-graphic" value="add signal" />
+<input class="btn btn--primary btn-sm" type="button" id="plot-button" value="plot" />
+<input class="btn btn--primary btn-sm" type="button" id="play-button" value="play" />
 <hr/>
 <div class="container-fluid" id="tester"></div>
 <script src="index_renderer.js" type="text/javascript"></script>
