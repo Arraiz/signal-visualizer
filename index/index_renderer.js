@@ -1,4 +1,9 @@
 const tone = require('tone');
+let {
+    ipcRenderer,
+    remote
+} = require('electron');
+let main = remote.require("./main.js");
 TESTER = document.getElementById('tester');
 
 /*VOY A TITULAR A ESTE SCRIPT "COMO REESCRIBIR TODAS LAS FUNCIONES QUE TIENE HECHAS MATLAB Y COMO LAS 
@@ -9,6 +14,9 @@ ECHAS DE MENOS CUANDO LAS TIENES QUE HACER TODAS A MANO..."*/
 fs = 48000;
 ts = 1 / fs;
 
+//canal render->main r2m
+ipcRenderer.send('r2m', 'test');
+
 //continuar desde añadir mas de una funcion al plot (sumar funciones)
 
 //add signals button
@@ -16,7 +24,6 @@ document.getElementById('add-graphic').addEventListener('click', function () {
 
     addToolbar();
     createDeleteBtns();
-
 });
 
 
@@ -25,11 +32,11 @@ document.getElementById('add-graphic').addEventListener('click', function () {
 //delete signal in selection
 let delete_btns = document.getElementsByClassName('delete-btn');
 for (let i = 0; i < delete_btns.length; i++) {
-  
+
     delete_btns[i].addEventListener('click', function () {
 
         delete_btns[i].parentElement.nodeName
-  
+
     });
 }
 
@@ -43,7 +50,7 @@ for (let i = 0; i < delete_btns.length; i++) {
 document.getElementById('plot-button').addEventListener('click', function () {
 
     let toolbars = document.getElementsByClassName('toolbar');
-    
+
     let xpos = [];
     let ypos = [];
     for (let i = 0; i < toolbars.length; i++) {
@@ -77,6 +84,13 @@ document.getElementById('plot-button').addEventListener('click', function () {
             t: 0
         }
     });
+    //enviamos los datos para una nueva grafica
+    ipcRenderer.send('c1', {
+        x: xpos,
+        y: ypos
+    });
+
+
 });
 
 
@@ -128,7 +142,7 @@ function createDeleteBtns() {
     let delete_btns = document.getElementsByClassName('delete-btn');
     for (let i = 0; i < delete_btns.length; i++) {
         delete_btns[i].addEventListener('click', function () {
-            delete_btns[i].parentElement.parentElement.remove(); 
+            delete_btns[i].parentElement.parentElement.remove();
         });
     }
 
