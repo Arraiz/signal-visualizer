@@ -28,7 +28,9 @@
                         <p>otro</p>
                     </option>
                 </select>
-                <input class="freq-selector" type="number" name="freq(Hz)" />
+                <input class="freq-selector" type="number" name="freq(Hz)" placeholder="Frecuencia en HZ"/>
+                <input class="amp-selector" type="number" name="Amplitude" placeholder="Amplitud"/>
+                <input class="phase-selector" type="number" name="fase inicial" placeholder="fase inicial"/>
                 <button class="btn btn-primary  btn-sm delete-btn">x</button>
                 <!-- input(type="range", name="freqSlider",min="1",max="100")-->
             </div>
@@ -37,7 +39,6 @@
         <input class="btn btn-outline-primary btn-sm" type="button" id="plot-button" value="plot" />
         <input class="btn btn-outline-primary btn-sm" type="button" id="play-button" value="play" />
         <hr/>
-        <div class="container-fluid" id="tester"></div>
     </div>
     <script>
         require('./index_renderer.js')

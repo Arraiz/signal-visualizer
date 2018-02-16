@@ -39,7 +39,7 @@ function createWindow() {
   })
 }
 
-function createPlotWindow() {
+function createPlotWindow(data) {
   plotWin = new BrowserWindow({
     width: 800,
     height: 600
@@ -52,7 +52,10 @@ function createPlotWindow() {
 
   // Open the DevTools.
   plotWin.webContents.openDevTools()
-
+  //enviamos la data una vez esta cargado el dom
+  plotWin.webContents.once('dom-ready', () => {
+    plotWin.webContents.send('input-received', data)
+})
   // Emitted when the window is closed.
   plotWin.on('closed', () => {
     // Dereference the window object, usually you would store windows
@@ -86,8 +89,11 @@ app.on('activate', () => {
 
 
 ipcMain.on('c1', function (event, args) {
-  //open new windows
-  createPlotWindow();
+  //open new plot  window
+  createPlotWindow(args);
+
+  
+  
   //continuar desde aqui
 
 })

@@ -2,23 +2,34 @@ let {
     ipcRenderer,
     remote
 } = require('electron');
+let xpos;
+let ypos;
+ipcRenderer.on('input-received', (event, args) => {
 
-ipcRenderer.on('plot-info', function (event, args) {
-    console.log(args);
+    console.log('new window opened');
 
-    
-})
-/*
-TESTER = document.getElementById('tester');
+    TESTER = document.getElementById('tester');
 
-//plot the generated points
-Plotly.purge(TESTER);
-Plotly.newPlot(TESTER, [{
-    x: xpos,
-    y: ypos
-}], {
-    margin: {
-        t: 0
+    var timeTrace = {
+        x: args.x,
+        y: args.y,
+        mode: 'lines'
     }
+
+    var layout = {
+        title: 'Dominio Temporal',
+        xaxis: {
+          title: 'Tiempo'
+        },
+        yaxis: {
+          title: 'Amplitud'
+        }
+      };
+
+    //plot the generated points
+    Plotly.purge(TESTER);
+    Plotly.newPlot(TESTER, [
+       timeTrace
+    ],layout);
+
 });
-*/

@@ -1,9 +1,11 @@
-const tone = require('tone');
+const Tone = require('tone');
 let {
     ipcRenderer,
     remote
 } = require('electron');
 let main = remote.require("./main.js");
+const ft = require('fourier-transform');
+
 TESTER = document.getElementById('tester');
 
 /*VOY A TITULAR A ESTE SCRIPT "COMO REESCRIBIR TODAS LAS FUNCIONES QUE TIENE HECHAS MATLAB Y COMO LAS 
@@ -11,13 +13,14 @@ ECHAS DE MENOS CUANDO LAS TIENES QUE HACER TODAS A MANO..."*/
 
 //funciones para el ploteo
 
-fs = 48000;
+fs = 44100;
 ts = 1 / fs;
+
+
 
 //canal render->main r2m
 ipcRenderer.send('r2m', 'test');
 
-//continuar desde añadir mas de una funcion al plot (sumar funciones)
 
 //add signals button
 document.getElementById('add-graphic').addEventListener('click', function () {
@@ -41,7 +44,12 @@ for (let i = 0; i < delete_btns.length; i++) {
 }
 
 
+//get the play button for play tones
+document.getElementById('play-button').addEventListener('click', function () {
 
+    var osc = new Tone.Oscillator(440, "sine").toMaster().start();
+
+});
 
 
 
@@ -53,37 +61,40 @@ document.getElementById('plot-button').addEventListener('click', function () {
 
     let xpos = [];
     let ypos = [];
+    let amplitud
+    let fase_inicial
+    let spectrum;
+
     for (let i = 0; i < toolbars.length; i++) {
         let tempx = [];
         let tempy = [];
         signalType = toolbars[i].getElementsByClassName('signal-selector')[0].value;
         freq = toolbars[i].getElementsByClassName('freq-selector')[0].value
-
+        amplitud = toolbars[i].getElementsByClassName('amp-selector')[0].value;
+        fase_inicial = toolbars[i].getElementsByClassName('phase-selector')[0].value;
         //see if sine or cosine
         switch (signalType) {
             case 'Seno':
-                generateSine(freq, tempx, tempy);
+                generateSine(freq, tempx, tempy, amplitud, fase_inicial);
                 break;
-            case 'cosine':
-                generateCosine(freq);
+            case 'Coseno':
+                generateCosine(freq, tempx, tempy, amplitud, fase_inicial);
                 break;
             default:
                 break;
         }
         ypos = addSignal(ypos, tempy);
+        spectrum=ft([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
+        console.log(spectrum);
+        
         xpos = tempx;
+        
 
     }
-    //plot the generated points
-    Plotly.purge(TESTER);
-    Plotly.newPlot(TESTER, [{
-        x: xpos,
-        y: ypos
-    }], {
-        margin: {
-            t: 0
-        }
-    });
+    //calculamos la FFT
+  
+    console.log(ypos.length);
+    
     //enviamos los datos para una nueva grafica
     ipcRenderer.send('c1', {
         x: xpos,
@@ -98,9 +109,7 @@ document.getElementById('plot-button').addEventListener('click', function () {
 
 
 
-/*oscilador*/
-//var osc = new tone.Oscillator(440, "sine").toMaster();
-///
+
 
 
 
@@ -122,18 +131,18 @@ function addSignal(sa, sb) {
 
 
 
-function generateSine(freq, xpos, ypos) {
+function generateSine(freq, xpos, ypos,amplitud,fase_inicial) {
     for (let i = 0; i <= 1; i = i + ts) {
-        ypos.push(Math.sin(2 * Math.PI * i * freq));
+        ypos.push(amplitud*Math.sin(2 * Math.PI * i * freq+fase_inicial*Math.PI));
         xpos.push(i);
     }
 
 
 }
 
-function generateCosine(freq) {
+function generateCosine(freq, xpos, ypos,amplitud,fase_inicial) {
     for (let i = 0; i <= 1; i = i + ts) {
-        ypos.push(Math.cos(2 * Math.PI * i * freq));
+        ypos.push(amplitud*Math.cos(2 * Math.PI * i * freq+fase_inicial*Math.PI));
         xpos.push(i);
     }
 }
@@ -161,9 +170,10 @@ function addToolbar() {
             <p>otro</p>\
         </option>\
     </select>\
-    <input class="freq-selector" type="number" name="freq(Hz)" />\
-    <button class="btn btn-primary btn-sm delete-btn">x</button>\
-    <!-- input(type="range", name="freqSlider",min="1",max="100")-->'
+    <input class="freq-selector" type="number" name="freq(Hz)" placeholder="Frecuencia en HZ"/>\
+    <input class="amp-selector" type="number" name="Amplitude" placeholder="Amplitud"/>\
+    <input class="phase-selector" type="number" name="fase inicial" placeholder="fase inicial"/>\
+    <button class="btn btn-primary btn-sm delete-btn">x</button>'
 
     let parentDiv = document.getElementById('selector');
     let div = document.createElement('div')

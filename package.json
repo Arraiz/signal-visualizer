@@ -23,6 +23,8 @@
   "dependencies": {
     "bootstrap": "^4.0.0",
     "electron-pug": "^1.5.1",
+    "fft.js": "^4.0.3",
+    "fourier-transform": "^1.1.2",
     "jquery": "^3.3.1",
     "plotly.js": "^1.33.1",
     "tone": "^0.11.11"
