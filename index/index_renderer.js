@@ -11,10 +11,13 @@ TESTER = document.getElementById('tester');
 /*VOY A TITULAR A ESTE SCRIPT "COMO REESCRIBIR TODAS LAS FUNCIONES QUE TIENE HECHAS MATLAB Y COMO LAS 
 ECHAS DE MENOS CUANDO LAS TIENES QUE HACER TODAS A MANO..."*/
 
+//librosa python
+
 //funciones para el ploteo
 
-fs = 44100;
+fs = 65536;
 ts = 1 / fs;
+
 
 
 
@@ -28,6 +31,8 @@ document.getElementById('add-graphic').addEventListener('click', function () {
     addToolbar();
     createDeleteBtns();
 });
+
+
 
 
 //for multiple plots
@@ -84,34 +89,32 @@ document.getElementById('plot-button').addEventListener('click', function () {
                 break;
         }
         ypos = addSignal(ypos, tempy);
-        spectrum=ft([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
-        console.log(spectrum);
-        
+        //fftest
+        //ajustar factor de escala        
         xpos = tempx;
-        
+
 
     }
     //calculamos la FFT
-  
+    console.log(ypos.length);
+    if (fs < 65536) {
+        fillArray = new Array(65536 - fs).fill(0);
+        spectrum = ft(ypos.concat(fillArray));
+    }
     console.log(ypos.length);
     
+    spectrum = ft(ypos);
+    
+
     //enviamos los datos para una nueva grafica
     ipcRenderer.send('c1', {
         x: xpos,
-        y: ypos
+        y: ypos,
+        Y: spectrum
     });
 
 
 });
-
-
-
-
-
-
-
-
-
 
 function addSignal(sa, sb) {
     total = [];
@@ -131,18 +134,18 @@ function addSignal(sa, sb) {
 
 
 
-function generateSine(freq, xpos, ypos,amplitud,fase_inicial) {
-    for (let i = 0; i <= 1; i = i + ts) {
-        ypos.push(amplitud*Math.sin(2 * Math.PI * i * freq+fase_inicial*Math.PI));
+function generateSine(freq, xpos, ypos, amplitud, fase_inicial) {
+    for (let i = 0; i < 1; i = i + ts) {
+        ypos.push(amplitud * Math.sin(2 * Math.PI * i * freq + fase_inicial * Math.PI));
         xpos.push(i);
     }
 
 
 }
 
-function generateCosine(freq, xpos, ypos,amplitud,fase_inicial) {
-    for (let i = 0; i <= 1; i = i + ts) {
-        ypos.push(amplitud*Math.cos(2 * Math.PI * i * freq+fase_inicial*Math.PI));
+function generateCosine(freq, xpos, ypos, amplitud, fase_inicial) {
+    for (let i = 0; i < 1; i = i + ts) {
+        ypos.push(amplitud * Math.cos(2 * Math.PI * i * freq + fase_inicial * Math.PI));
         xpos.push(i);
     }
 }

@@ -8,6 +8,13 @@ locals = null;
 const ipcMain = require('electron').ipcMain;
 require('electron-reload')(__dirname);
 
+//TD:LR
+//opciones diferentes para tiempo o frecuencia 
+//comentar librerias fft
+//considerar sliders
+
+
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
