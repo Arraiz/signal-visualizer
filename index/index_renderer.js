@@ -15,7 +15,7 @@ ECHAS DE MENOS CUANDO LAS TIENES QUE HACER TODAS A MANO..."*/
 
 //funciones para el ploteo
 
-fs = 65536;
+fs = 48000;
 ts = 1 / fs;
 
 
@@ -96,15 +96,17 @@ document.getElementById('plot-button').addEventListener('click', function () {
 
     }
     //calculamos la FFT
-    console.log(ypos.length);
-    if (fs < 65536) {
-        fillArray = new Array(65536 - fs).fill(0);
-        spectrum = ft(ypos.concat(fillArray));
-    }
-    console.log(ypos.length);
-    
-    spectrum = ft(ypos);
-    
+
+
+
+    fillArray = new Array(65536 - fs).fill(0);
+    let yposT = ypos.concat(fillArray);
+    spectrum = ft(yposT);
+
+    console.log(spectrum.length);
+    console.log(spectrum);
+
+
 
     //enviamos los datos para una nueva grafica
     ipcRenderer.send('c1', {
@@ -135,8 +137,8 @@ function addSignal(sa, sb) {
 
 
 function generateSine(freq, xpos, ypos, amplitud, fase_inicial) {
-    for (let i = 0; i < 1; i = i + ts) {
-        ypos.push(amplitud * Math.sin(2 * Math.PI * i * freq + fase_inicial * Math.PI));
+    for (let i = 0; i < 1 * fs; i = i + 1) {
+        ypos.push(amplitud * Math.sin(2 * Math.PI * i * (freq / fs) + fase_inicial * Math.PI));
         xpos.push(i);
     }
 
@@ -146,7 +148,7 @@ function generateSine(freq, xpos, ypos, amplitud, fase_inicial) {
 function generateCosine(freq, xpos, ypos, amplitud, fase_inicial) {
     for (let i = 0; i < 1; i = i + ts) {
         ypos.push(amplitud * Math.cos(2 * Math.PI * i * freq + fase_inicial * Math.PI));
-        xpos.push(i);
+
     }
 }
 

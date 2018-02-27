@@ -35,8 +35,11 @@ ipcRenderer.on('input-received', (event, args) => {
     ],layout);
 
     //freciancy domain plot
-    let X = Array.from(Array(args.Y.length), (_,x) => x);
-    console.log(X);
+    let X=[];
+    for (let i=0;i<args.Y.length;i++){
+      X.push(i*48000/(args.Y.length*2));
+    }
+    console.log(X.length);
    
     args.Y.length
     var timeTrace2 = {
